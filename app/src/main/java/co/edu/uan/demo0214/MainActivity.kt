@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import co.edu.uan.demo0214.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,19 +17,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val btnLeft = findViewById<Button>(R.id.btnLeft)
         val btnRight = findViewById<Button>(R.id.btnRight)
         generateRandomNumbers()
 
-        btnLeft.setOnClickListener {
+        binding.btnLeft.setOnClickListener {
             if(numberLeft > numberRight) {
                 // Winner
                 Toast.makeText(this, "Winner", Toast.LENGTH_SHORT).show()
